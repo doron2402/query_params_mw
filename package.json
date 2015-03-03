@@ -1,0 +1,29 @@
+{
+  "name": "query_params_middleware",
+  "version": "1.0.0",
+  "description": "convert query params to camel cases",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doron2402/query_params_mw.git"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "queryparams",
+    "camelcase"
+  ],
+  "author": "Doron Segal <doron2402@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doron2402/query_params_mw/issues"
+  },
+  "homepage": "https://github.com/doron2402/query_params_mw"
+}
