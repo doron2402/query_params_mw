@@ -2,20 +2,34 @@
   Works with Express
 
   convert your query params to camel case from: Caps, underscore, and dash
-
-  ?FirstName => firstName
-  ?first_name => firstName
-  ?first-name => firstName
+  {
+    FirstName: 'some first name',
+    first_name: 'some first name',
+    first-name: 'some first name'
+  }
+  =>
+  {
+    FirstName: 'some first name'
+  }
 */
-module.exports = function(req, res, next) {
+module.exports = function(queryParams, next) {
+  var error = null;
 
-  if (!req || !req.query) {
-    return next();
+  if (!queryParams) {
+    error = 'queryParams is undefined';
+    return next(error);
   }
 
-  var requestQueryKeys = Object.keys(req.query);
+  if (Array.isArray(queryParams)){
+    error = 'queryParams is an array use querystring.parse';
+    return next(error);
+  }
+
+  var newQueryParams = {};
+  var requestQueryKeys = Object.keys(queryParams);
   if (requestQueryKeys.length === 0) {
-    return next();
+    error = 'Request Query Params is empty object';
+    return next(error);
   }
 
   var lowerCaseFirstLetterInString = function(str) {
@@ -42,8 +56,7 @@ module.exports = function(req, res, next) {
       key = convertUnderscoreToCaps(key);
     }
 
-    req.query[lowerCaseFirstLetterInString(key)] = req.query[key];
+    newQueryParams[lowerCaseFirstLetterInString(key)] = queryParams[key];
   });
-
-  return next();
+  return next(error, newQueryParams);
 };
